@@ -395,3 +395,57 @@ keyPrint = updatedKeyValue;
 
 keyPrint(2, "kang"); // updatedKeyValue: key = 2, value = kang
 ```
+
+**배열에 적용한 인터페이스**
+```typescript
+interface NumList {
+    [index:number]:number
+}
+let numArray: NumList = [1, 2, 3];
+numArray[0];
+numArray[1];
+```
+
+**선택적 속성**
+```typescript
+interface Employee {
+    empCode: number;
+    empName: string;
+    empdept?: string;
+}
+
+let empObj1: Employee = {
+    empCode:1, 
+    empName: "CodeReading"
+}
+```
+
+**읽기전용 속성**
+```typescript
+interface Citizen {
+    name: string;
+    readonly SSN: number;
+}
+
+let personObj: Citizen = {SSN: 110555444, name: "Codereading"}
+personObj.name = "Kang";
+personObj.SSN = 1234566777; // Compile Error
+```
+
+**인터페이스 확장**
+```typescript
+interface Person {
+    name: string;
+    gender: string;
+}
+
+interface Employee extends Person {
+    empCode: number;
+}
+
+let empObj: Employee = {
+    empCode: 1,
+    name:"CodeReading",
+    gender: "Male"
+}
+```
