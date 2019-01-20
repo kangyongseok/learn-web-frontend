@@ -449,3 +449,67 @@ let empObj: Employee = {
     gender: "Male"
 }
 ```
+
+## Class
+```typescript
+class Employee{
+    empCode: number;
+    empName: string;
+
+    constructor(code: number, name: string) {
+        this.empName = name;
+        this.empCode = code;
+    }
+
+    getSalary() : number {
+        return 10000;
+    }
+}
+```
+
+**Class.js**
+```javascript
+var Employee = /** @class */ (function () {
+    function Employee(code, name) {
+        this.empName = name;
+        this.empCode = code;
+    }
+    Employee.prototype.getSalary = function () {
+        return 10000;
+    };
+    return Employee;
+}());
+
+```
+컴파일된 `.js` 소스를 보면 클로저를 사용하는 방식으로 컴파일 되어있는것이 확인 가능합니다.
+
+**constructor**  
+객체를 만들때 호출되는 특별한 유형의 메서드입니다.
+
+**class 의 객체 만들기**
+```typescript
+class Employee {
+    empCode: number;
+    empName: string;
+}
+
+let empObj = new Employee();
+```
+
+그러나 이상태로는 인자값을 전달 해 줄수 없기때문에 생성자 즉 `constructor` 를 사용하여 매개변수를 받을 수 있다.
+
+```typescript
+class Employee {
+    empCode: number;
+    empName: string;
+
+    constructor(empcode: number, name: string) {
+        this.empCode = empcode;
+        this.empName = name;
+    }
+}
+
+let empObj = new Employee(100, "CodeReading");
+console.log(empObj); //{ empName: 'CodeReading', empCode: 100 }
+```
+
