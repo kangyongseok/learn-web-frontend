@@ -73,3 +73,95 @@ WAS 는 웹 브라우저로부터 Servlet 요청을 받으면
 - 서블릿은 해당객체를 이용하여 content type, 응답코드, 응답메세지 등을 전송
 
 
+JSP
+---
+
+**.jsp 가 실행될때 벌어지는 일**
+JSP 는 그 자체로 실행되는것이 아닌 JAVA 와 CLASS 파일로 변환된 후에 실행되게 된다. 서블릿소스로 컴파일이 진행된다.
+
+**JSP 기본형태**
+```html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Insert title here</title>
+        </head>
+    <body>
+        
+
+    </body>
+    </html>
+```
+
+**jsp 의 life cycle**
+
+기본적으로 jsp 에서 `<% %>` 안에 입력되는 것들은 `service` 에 자동으로 포함되어진다. 매번 갱신되고 호출되는건 `service()` 메서드 밖에 없기 때문이다.
+
+만약 `init()` 이나 `desctroy()` 메서드에 포함시키고 싶다면
+`<%! 선언식 %>` 를 사용해서 내부에 해당하는 소스를 입력하면 된다.
+
+**스크립트 요소의 이해**
+
+- 선언문 : `<%! %>` 전역변수 선언 및 메소드 선언에 사용
+- 스크립트릿 : `<% %>` 프로그래밍 코드 기술에 사용
+- 표현식 : `<%=%>` 화면에 출력할 내용 기술에 사용
+
+**JSP 내장객체**
+
+![내장객체](https://cphinf.pstatic.net/mooc/20180130_74/1517275973733EL11k_PNG/2_3_4_jsp_.PNG)
+
+
+
+**redirect VS forward**
+- redirect : 요청이 여러번 왔다 갔다함 그래서 req, res 객체가 두번 생성되고 새롭게 요청하는것이기 때문에 url 주소가 요청한주소가 아니라 redirect 한 주소로 변경된다.
+
+- forward : 일부 작업은 요청받은 servlet 이 처리하고 나머지 작업은 다른 servlet 에 요청하여 맡기는 작업이기때문에 req, res 객체는 한번만 생성된다. 서버가 내부적으로 옮겨줬을 뿐이지 새로운 요청이 들어온것은 아니다.
+
+**servlet VS JSP**
+
+서블릿은 프로그램 로직을 짜기엔 편하지만 화면에 출력이 불편하고  
+JSP 는 화면에 출력은쉽지만 프로그램 로직을 짜기엔 불편
+
+## servlet and JSP 연동
+
+**LogicServlet.java**
+
+```java
+protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // TODO Auto-generated method stub
+    int v1 = (int)(Math.random() * 100) + 1;
+    int v2 = (int)(Math.random() * 100) + 1;
+    int result = v1 + v2;
+    
+    request.setAttribute("v1", v1);
+    request.setAttribute("v2", v2);
+    request.setAttribute("result", result);
+    
+    RequestDispatcher rd = request.getRequestDispatcher("/jsp/result.jsp");
+    rd.forward(request, response);
+}
+```
+
+**result.jsp**
+```html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+	int v1 = (int)request.getAttribute("v1");
+	int v2 = (int)request.getAttribute("v2");
+	int result = (int)request.getAttribute("result");
+%>
+<%= v1 %> + <%= v2 %> = <%= result %>
+</body>
+</html>
+```
