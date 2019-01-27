@@ -513,3 +513,105 @@ let empObj = new Employee(100, "CodeReading");
 console.log(empObj); //{ empName: 'CodeReading', empCode: 100 }
 ```
 
+**상속**
+```typescript
+class Person {
+    name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
+class Employee3 extends Person {
+    empCode: number;
+
+    constructor(empcode: number, name: string) {
+        super(name);
+        this.empCode = empcode;
+    }
+
+    displayName():void {
+        console.log(`Name = ${this.name}, Employess Code = ${this.empCode}`)
+    }
+}
+
+let emp = new Employee3(100, "Kang");
+emp.displayName();
+```
+
+**인터페이스 구현**
+```typescript
+interface Person {
+    name: string;
+    display():void;
+}
+
+interface Employee {
+    empCode: number;
+}
+
+class EmployeeTest implements Person, Employee {
+    empCode: number;
+    name: string;
+
+    constructor(empcode: number, name: string) {
+        this.empCode = empcode;
+        this.name = name;
+    }
+
+    display():void {
+        console.log(`Name = ${this.name}, Employee Code = ${this.empCode}`)
+    }
+}
+
+let per:Person = new Employee(100, "Kang");
+per.display();
+
+let emp: Employee = new Employee(100, "Kang");
+emp.display();
+```
+`Person` 인터페이스에는 `display()` 가 구현되어있어 출력할때 메서드 호출이 가능하지만 `Employee` 인터페이스는 따로 `display()` 를 포함하고 있지 않기 때문에 두번째 출력문은 에러가 발생합니다.
+
+**메서드 오버라이드**
+```typescript
+class Car {
+    name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+
+    run(speed: number = 0) {
+        console.log(`A ${this.name} is moving at ${speed} mhp!`);
+    }
+}
+
+class Mercedes extends Car {
+    constructor(name: string) {
+        super(name);
+    }
+
+    run(speed = 150) {
+        console.log('A Merceses Started')
+        super.run(speed);
+    }
+}
+
+class Honda extends Car {
+    constructor(name: string) {
+        super(name);
+    }
+
+    run(speed = 100) {
+        console.log('A Honda Started')
+        super.run(speed);
+    }
+}
+
+let mercObj = new Mercedes("Mercedes-Benz GLA");
+let hondaObj = new Honda("Honda City")
+
+mercObj.run();  // A Mercedes started A Mercedes-Benz GLA is moving at 150 mph!
+hondaObj.run(); // A Honda started A Honda City is moving at 100 mph!
+```
