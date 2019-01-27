@@ -37,7 +37,6 @@ require('es6-promise').polyfill();
 
 </style>
 ```
-<<<<<<< HEAD
 
 
 ## Vue Life Cycle
@@ -99,5 +98,3 @@ require('es6-promise').polyfill();
     - 뷰 인스턴스가 제거된 후에 호출
     - Vue 인스턴스의 모든 디렉티브가 바인딩 해제되고 모든 이벤트 리스너가 제거되면 모든 하위 Vue 인스턴스도 삭제된다.
 
-=======
->>>>>>> c7be8fa3d0be792fbbe59cd4954bae8d43827441
