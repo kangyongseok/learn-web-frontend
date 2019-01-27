@@ -80,7 +80,7 @@ JSP
 JSP 는 그 자체로 실행되는것이 아닌 JAVA 와 CLASS 파일로 변환된 후에 실행되게 된다. 서블릿소스로 컴파일이 진행된다.
 
 **JSP 기본형태**
-```html
+```jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <!DOCTYPE html>
@@ -145,8 +145,13 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 }
 ```
 
+`servlet` 에서 로직을 생성하고   
+`request.setAttribute` 에 이름과 함께 값을 저장  
+`RequestDispatcher rd = request.getRequestDispatcher("/jsp/result.jsp");` 로 해당 jsp 로 저장한 값을 보낼준비를하고  
+`rd.forward(request, response);` 요청객체와 응답객체를 같이 전달해 준다.
+
 **result.jsp**
-```html
+```jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
